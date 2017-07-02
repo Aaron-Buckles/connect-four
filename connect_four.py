@@ -31,6 +31,7 @@ def display():
     clear()
     print("Player {}'s Turn\n".format(get_turn()))
     print("1 2 3 4 5 6 7")
+    print("-------------")
     for row in range(rows):
         for column in range(columns):
             print(rows_list[row][column], end=' ')
