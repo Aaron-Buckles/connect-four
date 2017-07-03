@@ -1,5 +1,5 @@
-# functions: make_move, check_for_win
 import os
+import sys
 
 columns = 7
 rows = 6
@@ -46,7 +46,7 @@ def get_input():
         try:
             player_input = input("\n> ")
             if player_input == "Q":
-                return "Q"
+                sys.exit()
             else:
                 column = int(player_input)
         except ValueError:
@@ -86,6 +86,10 @@ def make_move(column):
             new_column = get_input()
 
 
+def check_for_win():
+    pass
+
+
 def intro():
     clear()
     print("Welcome to Connect 4!")
@@ -100,9 +104,8 @@ def game():
     while True:
         display()
         player_input = get_input()
-        if player_input == 'Q':
-            break
         make_move(player_input)
+        check_for_win()
 
 
 game()
