@@ -1,6 +1,8 @@
 import os
 import sys
 
+from win_combinations import WIN_COMBOS
+
 columns = 7
 rows = 6
 
@@ -29,7 +31,7 @@ def get_turn():
 
 
 def display():
-    clear()
+    #clear()
     print("Player {}'s Turn\n".format(get_turn()))
     print("1 2 3 4 5 6 7")
     print("-------------")
@@ -74,9 +76,6 @@ def make_move(column):
             if rows_list[row][column-1] == empty:
                 # fill the spot with the player's number
                 rows_list[row][column-1] = get_turn()
-                # next player's turn
-                global turn_player1 
-                turn_player1 = not turn_player1
                 break
             else:
                 # stack the pieces on one another
@@ -87,15 +86,51 @@ def make_move(column):
 
 
 def get_all_spots():
-    # use rows list to generate a list of all spots on the board
-    all_spots = 
+    # use rows_list to generate a list of all spots on the board
+    all_spots = []
     for row in rows_list:
         for column in row:
+            all_spots.append(column)
+    return all_spots
+
+
+def check_combination(combo):
+    #print(combo)
+    for WIN_COMBO in WIN_COMBOS:
+        for index, spot in enumerate(combo):
+            if WIN_COMBO[index] != spot:
+                # break if there is a difference between combos
+                break
+        else:
+            # this occurs if the combos match exactly
+            print("Player {} Wins!".format(get_turn()))
+            sys.exit()
             
 
-
 def check_for_win():
-    pass
+    # must convert CURRENT player's symbol (1 or 2) into a X
+    print("All: " + str(get_all_spots()))
+    all_spots = []
+    for spot in get_all_spots():
+        if spot == get_turn():
+            all_spots.append('X')
+        else:
+            all_spots.append('O')
+    print("New: " + str(all_spots))
+    print("Rows List: " + str(rows_list))
+    # now check all 4 x 4 areas
+    # FIX: The problem is right here!!!
+    size = 4
+    for row in range((rows+1) - size):
+        for column in range((columns+1) - size):
+            # create a 4 x 4 combo
+            combo = []
+            for row_offset in range(size):
+                for col_offset in range(size):
+                    # index = x + size * y
+                    index = (column + col_offset) + size * (row + row_offset)
+                    combo.append(all_spots[index])
+            check_combination(combo)
 
 
 def intro():
@@ -114,6 +149,9 @@ def game():
         player_input = get_input()
         make_move(player_input)
         check_for_win()
+        # next player's turn
+        global turn_player1 
+        turn_player1 = not turn_player1
 
 
 game()
