@@ -86,6 +86,13 @@ def make_move(column):
             new_column = get_input()
 
 
+def get_all_spots():
+    # use rows list to generate a list of all spots on the board
+    for row in rows_list:
+        for column in row:
+            
+
+
 def check_for_win():
     pass
 

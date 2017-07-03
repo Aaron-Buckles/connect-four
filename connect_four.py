@@ -88,6 +88,7 @@ def make_move(column):
 
 def get_all_spots():
     # use rows list to generate a list of all spots on the board
+    all_spots = 
     for row in rows_list:
         for column in row:
             
