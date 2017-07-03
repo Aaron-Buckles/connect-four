@@ -8,6 +8,7 @@ turn_player1 = True
 rows_list = []
 empty = 'O'
 
+
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
