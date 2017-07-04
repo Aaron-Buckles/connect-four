@@ -8,7 +8,7 @@ rows = 6
 
 turn_player1 = True
 rows_list = []
-empty = 'O'
+empty = '.'
 
 
 def clear():
@@ -25,16 +25,15 @@ def init_spots():
 
 def get_turn():
     if turn_player1 == True:
-        return "1"
+        return "X"
     else:
-        return "2"
+        return "O"
 
 
 def display():
     clear()
     print("Player {}'s Turn\n".format(get_turn()))
     print("1 2 3 4 5 6 7")
-    print("-------------")
     for row in range(rows):
         for column in range(columns):
             print(rows_list[row][column], end=' ')
@@ -106,7 +105,9 @@ def check_combination(combo):
         else:
             # this occurs if the combos match exactly
             display()
+            print("")
             print("Player {} Wins!".format(get_turn()))
+            print("")
             sys.exit()
             
 
@@ -161,13 +162,3 @@ def game():
 
 
 game()
-
-
-
-
-
-
-
-
-
-
