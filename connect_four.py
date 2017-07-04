@@ -31,7 +31,7 @@ def get_turn():
 
 
 def display():
-    #clear()
+    clear()
     print("Player {}'s Turn\n".format(get_turn()))
     print("1 2 3 4 5 6 7")
     print("-------------")
@@ -98,37 +98,43 @@ def check_combination(combo):
     #print(combo)
     for WIN_COMBO in WIN_COMBOS:
         for index, spot in enumerate(combo):
+            if spot == 'X':
+                continue
             if WIN_COMBO[index] != spot:
                 # break if there is a difference between combos
                 break
         else:
             # this occurs if the combos match exactly
+            display()
             print("Player {} Wins!".format(get_turn()))
             sys.exit()
             
 
 def check_for_win():
     # must convert CURRENT player's symbol (1 or 2) into a X
-    print("All: " + str(get_all_spots()))
+    #print("All: " + str(get_all_spots()))
     all_spots = []
     for spot in get_all_spots():
         if spot == get_turn():
             all_spots.append('X')
         else:
             all_spots.append('O')
-    print("New: " + str(all_spots))
-    print("Rows List: " + str(rows_list))
+    #print("New: " + str(all_spots))
+    #print("Rows List: " + str(rows_list))
     # now check all 4 x 4 areas
-    # FIX: The problem is right here!!!
     size = 4
     for row in range((rows+1) - size):
+        # if row == 1:
+        #     import pdb; pdb.set_trace()
         for column in range((columns+1) - size):
             # create a 4 x 4 combo
             combo = []
             for row_offset in range(size):
                 for col_offset in range(size):
-                    # index = x + size * y
-                    index = (column + col_offset) + size * (row + row_offset)
+                    # index = x + width * y
+                    final_row = row + row_offset
+                    final_col = column + col_offset
+                    index = final_col + (columns * final_row)
                     combo.append(all_spots[index])
             check_combination(combo)
 
